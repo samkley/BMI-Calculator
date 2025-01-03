@@ -1,0 +1,159 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Light mode styles */
+:root {
+    --background-color: #f7f7f7;
+    --text-color: #333;
+    --container-bg-color: #fff;
+    --button-bg-color: #6200ea;
+    --button-hover-bg: #3700b3;
+    --input-border-color: #ccc;
+    --error-color: red;
+    --result-bg-color: #f0f0f0;
+    --icon-color: #333;
+    --button-dark-bg-color: #bb86fc; /* Add dark mode color here */
+    --button-dark-hover-bg: #985eff; /* Hover effect for dark mode */
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    --background-color: #121212;
+    --text-color: #f7f7f7;
+    --container-bg-color: #1e1e1e;
+    --button-bg-color: var(--button-dark-bg-color);
+    --button-hover-bg: var(--button-dark-hover-bg); /* Override for dark mode */
+    --input-border-color: #444;
+    --error-color: #ff6b6b;
+    --result-bg-color: #2a2a2a;
+    --icon-color: #f7f7f7;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    background-color: var(--container-bg-color);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: var(--button-bg-color);
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--input-border-color);
+    background-color: var(--container-bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--button-bg-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: var(--button-hover-bg);
+    transform: scale(1.02);
+}
+
+button:focus {
+    outline: 2px solid var(--button-bg-color);
+    outline-offset: 2px;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.error {
+    color: var(--error-color);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    background-color: var(--result-bg-color);
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.bmi-chart {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.bmi-chart ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.bmi-chart li {
+    margin-bottom: 10px;
+}
+
+/* Moon icon toggle button */
+#darkModeToggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--icon-color);
+    transition: color 0.3s, transform 0.2s;
+    outline: none;
+}
+
+#darkModeToggle:hover {
+    transform: scale(1.1);
+}
+
+
