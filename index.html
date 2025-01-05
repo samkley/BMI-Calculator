@@ -12,12 +12,18 @@
     <div class="container">
         <h1>BMI Calculator</h1>
         <form id="bmiForm">
-            <label for="weight">Weight (kg):</label>
-            <input type="number" id="weight" placeholder="Enter your weight in kg" required>
+            <label for="unitToggle">Measurement System:</label>
+            <select id="unitToggle" aria-label="Measurement System">
+                <option value="metric">Metric (kg, cm)</option>
+                <option value="imperial">Imperial (lbs, inches)</option>
+            </select>
+
+            <label for="weight">Weight:</label>
+            <input type="number" id="weight" placeholder="Enter your weight" required>
             <div id="weightError" class="error"></div>
             
-            <label for="height">Height (cm):</label>
-            <input type="number" id="height" placeholder="Enter your height in cm" required>
+            <label for="height">Height:</label>
+            <input type="number" id="height" placeholder="Enter your height" required>
             <div id="heightError" class="error"></div>
             
             <button type="submit" disabled>Calculate BMI</button>
@@ -35,12 +41,27 @@
         </div>
     </div>
 
+    <!-- Pen icon button for color selection -->
+    <button id="colorPickerButton" title="Choose Cursor Color" aria-label="Choose Cursor Color">
+        <i class="fa fa-pen"></i>
+    </button>
 
+    <!-- Color picker input field, initially hidden -->
+    <input type="color" id="colorPicker" style="display: none;" aria-label="Pick Cursor Color">
+
+    <!-- Rainbow toggle button, initially hidden -->
+    <button id="rainbowOptionButton" style="display: none;" title="Enable Rainbow Cursor" aria-label="Enable Rainbow Cursor">
+        Rainbow
+    </button>
+
+    <!-- Dark mode toggle button -->
     <button id="darkModeToggle" aria-label="Toggle dark mode">
         <i class="fas fa-moon"></i>
     </button>
 
+    <!-- Canvas for cursor effects -->
+    <canvas id="cursorCanvas"></canvas>
+
     <script src="script.js"></script>
 </body>
 </html>
-
