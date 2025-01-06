@@ -16,8 +16,8 @@
     --error-color: red;
     --result-bg-color: #f0f0f0;
     --icon-color: #333;
-    --button-dark-bg-color: #bb86fc; /* Add dark mode color here */
-    --button-dark-hover-bg: #985eff; /* Hover effect for dark mode */
+    --button-dark-bg-color: #bb86fc;
+    --button-dark-hover-bg: #985eff;
 }
 
 /* Dark mode styles */
@@ -26,7 +26,7 @@ body.dark-mode {
     --text-color: #f7f7f7;
     --container-bg-color: #1e1e1e;
     --button-bg-color: var(--button-dark-bg-color);
-    --button-hover-bg: var(--button-dark-hover-bg); /* Override for dark mode */
+    --button-hover-bg: var(--button-dark-hover-bg);
     --input-border-color: #444;
     --error-color: #ff6b6b;
     --result-bg-color: #2a2a2a;
@@ -147,77 +147,6 @@ button:disabled {
     color: var(--icon-color);
     border: 2px solid var(--input-border-color);
     border-radius: 50%;
-    padding: 8px; /* Adjusted for tighter fit */
-    font-size: 20px; /* Slightly smaller icon size */
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, transform 0.2s, border-color 0.3s;
-    outline: none;
-    width: 40px; /* Ensures a fixed, circular size */
-    height: 40px; /* Matches width for circle */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#darkModeToggle:hover {
-    transform: scale(1.1);
-    border-color: var(--button-bg-color);
-}
-
-body.dark-mode #darkModeToggle {
-    background-color: var(--container-bg-color); /* Matches dark mode container color */
-    color: var(--icon-color); /* Matches dark mode icon color */
-}
-
-/* Canvas styles */
-#cursorCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1; /* Moves the canvas behind other elements */
-    pointer-events: none; /* Allows interactions with elements underneath */
-    background-color: var(--background-color); /* Ensures the background matches light/dark mode */
-}
-
-/* Light Mode-specific Canvas Styling */
-body:not(.dark-mode) #cursorCanvas {
-    background-color: #fff; /* Explicitly set white background for light mode */
-}
-
-body.dark-mode #cursorCanvas {
-    background-color: #121212; /* Explicitly set dark background for dark mode */
-}
-
-/* Light mode styles for the select dropdown */
-select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    border: 1px solid var(--input-border-color);
-    background-color: var(--container-bg-color); /* Light mode background */
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
-}
-
-/* Dark mode styles for the select dropdown */
-body.dark-mode select {
-    background-color: var(--container-bg-color); /* Dark mode background */
-    color: var(--text-color);
-    border: 1px solid #444; /* Adjust border color for dark mode */
-}
-
-/* Pen icon button for color selection */
-#colorPickerButton {
-    position: fixed;
-    bottom: 70px; /* Positioned above the dark mode toggle */
-    left: 20px;
-    background-color: var(--container-bg-color);
-    color: var(--icon-color);
-    border: 2px solid var(--input-border-color);
-    border-radius: 50%;
     padding: 8px;
     font-size: 20px;
     cursor: pointer;
@@ -230,24 +159,67 @@ body.dark-mode select {
     align-items: center;
 }
 
-/* Initially hidden */
-#colorPicker {
-    position: fixed;
-    bottom: 30px;
-    left: 70px;
-    z-index: 9999;
-    display: none; /* Hidden initially */
-    cursor: pointer;
-    width: 50px; /* Set the size of the color picker */
-    height: 50px; /* Make sure it's appropriately sized */
-}
-
-#colorPickerButton:hover {
+#darkModeToggle:hover {
     transform: scale(1.1);
     border-color: var(--button-bg-color);
 }
 
-body.dark-mode #colorPickerButton {
+body.dark-mode #darkModeToggle {
     background-color: var(--container-bg-color);
     color: var(--icon-color);
+}
+
+/* Canvas styles */
+#cursorCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    background-color: var(--background-color);
+}
+
+/* Light Mode-specific Canvas Styling */
+body:not(.dark-mode) #cursorCanvas {
+    background-color: #fff;
+}
+
+body.dark-mode #cursorCanvas {
+    background-color: #121212;
+}
+
+/* Container for color picker and button */
+.color-picker-container {
+    position: fixed;
+    bottom: 70px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between the pen icon and color picker */
+}
+
+/* Pen icon button for color selection */
+#colorPickerButton {
+    background-color: var(--container-bg-color);
+    color: var(--icon-color);
+    border: 2px solid var(--input-border-color);
+    border-radius: 50%;
+    padding: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s, border-color 0.3s;
+    outline: none;
+}
+
+/* Color picker input */
+#colorPicker {
+    display: block;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background-color: transparent;
 }
