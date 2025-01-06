@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Color picker elements for custom cursor
     const colorPickerButton = document.getElementById('colorPickerButton');
     const colorPicker = document.getElementById('colorPicker');
-    const rainbowOptionButton = document.getElementById('rainbowOptionButton');
 
     // Setup canvas for cursor effects
     const canvas = document.createElement('canvas');
@@ -31,10 +30,12 @@ document.addEventListener('DOMContentLoaded', function () {
     canvas.style.left = 0;
     canvas.style.pointerEvents = 'none';
 
-    let hue = 0;
-    let cursorColor = `hsl(0, 100%, 50%)`; // Default color
-    let isRainbowMode = false; // Toggle for rainbow mode
+    let cursorColor = `#ff0000`; // Default color
     const particles = [];
+
+    // Apply a border around the color picker
+    colorPicker.style.border = '2px solid white';
+    colorPicker.style.borderRadius = '4px';
 
     // Validate input fields
     function validateInputs() {
@@ -124,25 +125,22 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Handle color picker toggle for cursor color
+    // Color picker button event
     colorPickerButton.addEventListener('click', function () {
-        const isVisible = colorPicker.style.display === 'block';
-        colorPicker.style.display = isVisible ? 'none' : 'block'; // Toggle visibility
+        // Toggle color picker visibility on click
+        colorPicker.style.display = colorPicker.style.display === 'block' ? 'none' : 'block';
+        colorPicker.focus(); // Focus the color picker when shown
     });
 
-    // Handle color selection
+    // Update cursor color based on the color picker input
     colorPicker.addEventListener('input', function () {
-        cursorColor = colorPicker.value; // Set the cursor color based on user selection
-        isRainbowMode = false; // Turn off rainbow mode when a color is selected
-        rainbowOptionButton.textContent = 'Rainbow'; // Reset button text
-        rainbowOptionButton.style.display = 'block'; // Show rainbow button after color pick
+        cursorColor = colorPicker.value; // Update cursor color on selection
+        colorPicker.style.display = 'none'; // Hide color picker after color selection
     });
 
-    // Toggle rainbow mode
-    rainbowOptionButton.addEventListener('click', function () {
-        isRainbowMode = !isRainbowMode; // Toggle rainbow mode
-        cursorColor = isRainbowMode ? `hsl(${hue}, 100%, 50%)` : `hsl(0, 100%, 50%)`;
-        rainbowOptionButton.textContent = isRainbowMode ? 'Stop Rainbow' : 'Rainbow'; // Toggle button text
+    // Hide color picker if it loses focus
+    colorPicker.addEventListener('blur', function () {
+        colorPicker.style.display = 'none';
     });
 
     // Particle class to handle custom cursor effects
@@ -151,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.x = x;
             this.y = y;
             this.size = Math.random() * 5 + 1;
-            this.color = isRainbowMode ? `hsl(${hue}, 100%, 50%)` : cursorColor; // Rainbow or selected color
+            this.color = cursorColor; // Use the selected cursor color
             this.velocityX = Math.random() * 2 - 1;
             this.velocityY = Math.random() * 2 - 1;
         }
@@ -165,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = this.color; // Set particle color (rainbow or selected color)
+            ctx.fillStyle = this.color; // Set particle color to selected color
             ctx.fill();
         }
     }
@@ -186,21 +184,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const x = event.clientX;
         const y = event.clientY;
 
-        // Rainbow line effect
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.lineTo(x + 1, y + 1);
-        ctx.strokeStyle = cursorColor;
-        ctx.lineWidth = 2;
-        ctx.stroke();
-
-        // Fireworks effect with both rainbow and gold sparkles
+        // Fireworks effect with particles
         for (let i = 0; i < 5; i++) {
             particles.push(new Particle(x, y));
         }
-
-        hue += 5; // Increase hue for rainbow effect
-        if (hue >= 360) hue = 0; // Reset hue to keep it within range
     });
 
     // Adjust canvas size on window resize
@@ -211,7 +198,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Animate particles
     function animate() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+        ctx.fillStyle = document.body.classList.contains('dark-mode')
+            ? 'rgba(0, 0, 0, 0.1)'
+            : 'rgba(255, 255, 255, 0.1)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         handleParticles();
         requestAnimationFrame(animate);
